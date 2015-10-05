@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" / >
+		<title> Oblig 3 </title>
+		
+		<script>
+			window.onload = oppstart;
+			function oppstart(){
+				
+				document.getElementById("startcheckintervall").onclick = checkinput;
+				document.getElementById("startarraymanipulation").onclick = makearray;
+			}
+			
+		// -------- TASK 2	
+			function checkinput (){
+				var a = document.getElementById("boleanresult")
+				a.innerHTML = ""
+				var limit = document.getElementById("interv").value
+				var intervallarray = limit.split(",")
+				if (checkintervall(intervallarray[0], intervallarray[1], intervallarray[2]) === true){
+					a.innerHTML = "True"
+				}
+					else {a.innerHTML = "False"}
+			}
+			
+			function checkintervall (check, start, end){
+				var testarray = []
+				var i = Math.abs(start)
+				for (i ; start <= Math.abs(end); start++){
+					testarray.push(parseInt(start))
+				}
+				if (testarray.indexOf(parseInt(check)) === -1){
+					return false
+				}
+					else {return true}
+					
+			}
+			
+		// -------- TASK 3
+			var finishedarray = []
+			function makearray(start, end){
+				var limit2 = document.getElementById("getarraylimit").value
+				var arraylimit = limit2.split(",")
+				var start = parseInt(arraylimit[0])
+				var end = Math.abs(parseInt(arraylimit[1]))
+				
+				for (start; start <= end ; start++){
+					finishedarray.push(parseInt(start))
+				}
+		
+			}
+			 
+		
+		
+		</script>
+	</head>
+	
+	<body>
+		<h2> Tobias Hansen, informatik 2015 oblig 3 </h2>
+		<h3> Oppgave 2 </h3>
+		To check if a number is within a certain interval, <br />
+		replace the placholder text with numbers following <br />
+		the same format. <br />
+		<input placeholder="number, start, end" id="interv" />
+		<button id ="startcheckintervall" type="button"> Klikker her </button>
+		<p id="boleanresult"> </p>
+		<br /> <br />
+		
+		<h3> Oppgave 3 </h3>
+		Lag en array <input placeholder="start,end" id="getarraylimit" />
+		<button type="button" id="startarraymanipulation"> Klikker her </button>
+		<p id="arrayfeedback"> </p>
+	</body>
+</html>
