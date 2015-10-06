@@ -7,10 +7,11 @@
 		<script>
 			window.onload = oppstart;
 			function oppstart(){
-				setgameparameters();
+				document.getElementById("getcheckvalue").onkeypress = checkanswer;
 			}
 			
 			var life = 0
+			
 			
 			wordarray = ["Rock", "Metal", "Unicorn", "Python", 
 						 "Jawbreaker", "Microwave", "Jigsaw", "Dungeon",
@@ -18,14 +19,34 @@
 						 "Banished", "Crossfire", "Hellgate", "Redemption",
 						 "Ghostbuster", "Bittersweet", "Ganondorf", "Dragonborn"
 						]
+			var corevalue = wordarray[Math.floor(Math.random()*19)]
 			
 			function checkanswer (){
-				var corevalue = wordarray[Math.floor(Math.random()*20)]
-				var checkvalue = document.getElementById("getcheckvalue")
 				
-				for (i=0; i < corevalue.length; i++){
-					
+				var checkvalue = document.getElementById("getcheckvalue").value.split("")
+				var testarray = corevalue.split("")
+				
+				var resultarray = []
+				var feedback = document.getElementById("getcheckvalue")
+			
+			// ------------- INITIAL LIFE VALUE
+				if (corevalue.length > 6){
+					life = 10
 				}
+					else {life = 8}
+			
+			// ------------- ANSWER CHECK AND LIFE REDUCTION
+				for (i= corevalue.length; i >= 0; i--){
+					resultarray.push(" ")
+					a = testarray[i]
+					if (testarray.indexOf(checkvalue[i]) != -1){
+						resultarray[i] = checkvalue[i]
+						testarray.splice(i, a)
+					}
+						else {life -= 1}
+		
+				}
+				document.getElementById("showfeedback").innerHTML = resultarray;
 			}
 		</script>
 	</head>
