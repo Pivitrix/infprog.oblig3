@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Infprog oblig 3 del2 </title>
+		<meta charset ="utf-8">
+		
+		<script>
+			window.onload = oppstart;
+			function oppstart(){
+				setgameparameters();
+			}
+			
+			var life = 0
+			
+			wordarray = ["Rock", "Metal", "Unicorn", "Python", 
+						 "Jawbreaker", "Microwave", "Jigsaw", "Dungeon",
+						 "Pandemonium", "Gauntlet", "Shadowgate", "Morrowind",
+						 "Banished", "Crossfire", "Hellgate", "Redemption",
+						 "Ghostbuster", "Bittersweet", "Ganondorf", "Dragonborn"
+						]
+			
+			function checkanswer (){
+				var corevalue = wordarray[Math.floor(Math.random()*20)]
+				var checkvalue = document.getElementById("getcheckvalue")
+				
+				for (i=0; i < corevalue.length; i++){
+					
+				}
+			}
+		</script>
+	</head>
+	
+	<body>
+		<h2> Tobias Hansen Informatikk 2015, infprog oblig3 del2 </h2>
+		<h3> Oppgave 3, Hangman </h3>
+		
+		<p id ="showfeedback"> </p>
+		<input type="text" id="getcheckvalue" />
+		
+	</body>
+</html>
