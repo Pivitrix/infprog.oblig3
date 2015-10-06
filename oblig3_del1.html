@@ -9,10 +9,10 @@
 			window.onload = oppstart;
 			function oppstart(){
 				document.getElementById("startcheckintervall").onclick = checkinput;
-				document.getElementById("startarraymanipulation").onclick = usearrayfunc;
+				document.getElementById("startarraymanipulation").onclick = usearrayfunction;
 			}
 			
-		// -------- TASK 2	
+		// -------- TASK 2 --------	
 			function checkinput (){
 				var a = document.getElementById("boleanresult")
 				a.innerHTML = ""
@@ -37,7 +37,9 @@
 					
 			}
 			
-		// -------- TASK 3
+		// -------- TASK 3 --------
+		
+		// -------- Make initial array with input from html
 			function makearray(start, end, interval){
 				var finishedarray = []
 				var limit2 = document.getElementById("getarraylimit").value
@@ -53,6 +55,7 @@
 		
 			}
 			
+		// -------- Find largest value in array
 			function largestvalue(array){
 				var holder = array[0]
 				for (i=0; i < array.length; i++){
@@ -62,7 +65,8 @@
 				}
 				return holder;
 			}
-			 
+		
+		// -------- Find total value in array		
 			function arraysum (array){
 				totalvalue = 0
 				for (i=0; i < array.length; i++){
@@ -71,11 +75,13 @@
 				return totalvalue;
 			}
 			
+		// -------- Find average value in array			
 			function arrayaverage(array){
 				return (arraysum(array)/(array.length))
 				return average;
 			}
 			
+		// -------- Find specific value in array
 			function checkforvalue(array, test){
 				if (array.indexOf(test) === -1){
 					return false
@@ -84,15 +90,14 @@
 					
 			}
 			
-		
-			function usearrayfunc (){
+		// ------ Use array functions on/with html
+			function usearrayfunction (){
 					var search = document.getElementById("searchinput").value
 					
 					var largestnumber = largestvalue(makearray());
 					var totalsum = arraysum(makearray());
 					var averagevalue = arrayaverage(makearray());
 					var searchresult = checkforvalue(makearray(), parseInt(search))
-					
 					
 					var insertresult = document.getElementById("arrayfeedback");
 					
@@ -101,7 +106,7 @@
 					insertresult.innerHTML +="Sum of the array values are:"+totalsum+"<br />"
 					insertresult.innerHTML += "the average value of the array is:"+averagevalue+"<br />"
 					if (searchresult === true){
-					insertresult.innerHTML += search+" was indeed found in the array"
+						insertresult.innerHTML += search+" was indeed found in the array"
 					}
 						else if (searchresult === false && search.length > 0){insertresult.innerHTML += search+" was not found in the array"}
 			}
@@ -110,20 +115,24 @@
 	</head>
 	
 	<body>
+	
 		<h2> Tobias Hansen, informatik 2015 oblig 3 </h2>
 		<h3> Oppgave 2 </h3>
-		To check if a number is within a certain interval, <br />
+		
+		<p> To check if a number is within a certain interval, <br />
 		replace the placholder text with numbers following <br />
-		the same format. <br />
-		<input placeholder="number, start, end" id="interv" />
+		the same format. <br /> </p>
+		
+		<input placeholder="search value, start, end" id="interv" />
 		<button id ="startcheckintervall" type="button"> Klikker her </button>
 		<p id="boleanresult"> </p>
 		<br /> <br />
 		
 		<h3> Oppgave 3 </h3>
-		Lag en array <input placeholder="start,end, valuespacing " id="getarraylimit" />
+		Make an array <input placeholder="start,end, valuespacing " id="getarraylimit" />
 		<input placeholder="search value" id="searchinput" />
 		<button type="button" id="startarraymanipulation"> Klikker her </button>
 		<p id="arrayfeedback"> </p>
+		
 	</body>
 </html>
