@@ -8,9 +8,8 @@
 		<script>
 			window.onload = oppstart;
 			function oppstart(){
-				
 				document.getElementById("startcheckintervall").onclick = checkinput;
-				document.getElementById("startarraymanipulation").onclick = makearray;
+				document.getElementById("startarraymanipulation").onclick = usearrayfunc;
 			}
 			
 		// -------- TASK 2	
@@ -39,21 +38,74 @@
 			}
 			
 		// -------- TASK 3
-			var finishedarray = []
-			function makearray(start, end){
+			function makearray(start, end, interval){
+				var finishedarray = []
 				var limit2 = document.getElementById("getarraylimit").value
 				var arraylimit = limit2.split(",")
 				var start = parseInt(arraylimit[0])
 				var end = Math.abs(parseInt(arraylimit[1]))
+				var spacing = parseInt(arraylimit[2])
 				
-				for (start; start <= end ; start++){
+				for (start; start <= end ; start+=spacing){
 					finishedarray.push(parseInt(start))
 				}
+				return finishedarray
 		
 			}
+			
+			function largestvalue(array){
+				var holder = array[0]
+				for (i=0; i < array.length; i++){
+					if (holder < array[i]){
+						holder = array[i]
+					}
+				}
+				return holder;
+			}
 			 
+			function arraysum (array){
+				totalvalue = 0
+				for (i=0; i < array.length; i++){
+					totalvalue += parseInt(array[i])
+				}
+				return totalvalue;
+			}
+			
+			function arrayaverage(array){
+				return (arraysum(array)/(array.length))
+				return average;
+			}
+			
+			function checkforvalue(array, test){
+				if (array.indexOf(test) === -1){
+					return false
+				}
+					else {return true}
+					
+			}
+			
 		
-		
+			function usearrayfunc (){
+					var search = document.getElementById("searchinput").value
+					
+					var largestnumber = largestvalue(makearray());
+					var totalsum = arraysum(makearray());
+					var averagevalue = arrayaverage(makearray());
+					var searchresult = checkforvalue(makearray(), parseInt(search))
+					
+					
+					var insertresult = document.getElementById("arrayfeedback");
+					
+					insertresult.innerHTML = ""
+					insertresult.innerHTML += "Largest value in array:"+largestnumber+"<br />"
+					insertresult.innerHTML +="Sum of the array values are:"+totalsum+"<br />"
+					insertresult.innerHTML += "the average value of the array is:"+averagevalue+"<br />"
+					if (searchresult === true){
+					insertresult.innerHTML += search+" was indeed found in the array"
+					}
+						else if (searchresult === false && search.length > 0){insertresult.innerHTML += search+" was not found in the array"}
+			}
+				
 		</script>
 	</head>
 	
@@ -69,7 +121,8 @@
 		<br /> <br />
 		
 		<h3> Oppgave 3 </h3>
-		Lag en array <input placeholder="start,end" id="getarraylimit" />
+		Lag en array <input placeholder="start,end, valuespacing " id="getarraylimit" />
+		<input placeholder="search value" id="searchinput" />
 		<button type="button" id="startarraymanipulation"> Klikker her </button>
 		<p id="arrayfeedback"> </p>
 	</body>
