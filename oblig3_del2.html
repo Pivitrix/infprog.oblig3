@@ -10,9 +10,6 @@
 				document.getElementById("getcheckvalue").onkeypress = checkanswer;
 			}
 			
-			var life = 0
-			
-			
 			wordarray = ["Rock", "Metal", "Unicorn", "Python", 
 						 "Jawbreaker", "Microwave", "Jigsaw", "Dungeon",
 						 "Pandemonium", "Gauntlet", "Shadowgate", "Morrowind",
@@ -20,13 +17,14 @@
 						 "Ghostbuster", "Bittersweet", "Ganondorf", "Dragonborn"
 						]
 			var corevalue = wordarray[Math.floor(Math.random()*19)]
+			var testarray = corevalue.split("")
+			var resultarray = []
+			var life = 0
+			
 			
 			function checkanswer (){
 				
 				var checkvalue = document.getElementById("getcheckvalue").value.split("")
-				var testarray = corevalue.split("")
-				
-				var resultarray = []
 				var feedback = document.getElementById("getcheckvalue")
 			
 			// ------------- INITIAL LIFE VALUE
@@ -37,16 +35,25 @@
 			
 			// ------------- ANSWER CHECK AND LIFE REDUCTION
 				for (i= corevalue.length; i >= 0; i--){
+					if (resultarray.length <= corevalue.length){
 					resultarray.push(" ")
-					a = testarray[i]
-					if (testarray.indexOf(checkvalue[i]) != -1){
-						resultarray[i] = checkvalue[i]
-						testarray.splice(i, a)
 					}
-						else {life -= 1}
+					a = testarray[i]
+					
+						for (x=0; x < checkvalue.length; x++){
+							if (checkvalue[x] === a){
+								resultarray[i] = testarray[i]
+								testarray.splice(i, 1)
+							}
+						}
+						
+					
+						
 		
 				}
-				document.getElementById("showfeedback").innerHTML = resultarray;
+				document.getElementById("showfeedback").innerHTML = "";
+				document.getElementById("showfeedback").innerHTML += resultarray +"<br />";
+				document.getElementById("showfeedback").innerHTML = testarray;
 			}
 		</script>
 	</head>
