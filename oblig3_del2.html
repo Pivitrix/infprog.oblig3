@@ -7,7 +7,7 @@
 		<script>
 			window.onload = oppstart;
 			function oppstart(){
-				document.getElementById("getcheckvalue").onkeypress = checkanswer;
+				document.getElementById("getcheckvalue").onkeyup = checkanswer;
 			}
 			
 			wordarray = ["Rock", "Metal", "Unicorn", "Python", 
@@ -23,37 +23,22 @@
 			
 			
 			function checkanswer (){
-				
-				var checkvalue = document.getElementById("getcheckvalue").value.split("")
-				var feedback = document.getElementById("getcheckvalue")
-			
-			// ------------- INITIAL LIFE VALUE
-				if (corevalue.length > 6){
-					life = 10
-				}
-					else {life = 8}
+				var checkvalue = document.getElementById("getcheckvalue").value
+				var input = document.getElementById("getcheckvalue") 
+				var returnfeedback = document.getElementById("showfeedback")
 			
 			// ------------- ANSWER CHECK AND LIFE REDUCTION
 				for (i= corevalue.length; i >= 0; i--){
-					if (resultarray.length <= corevalue.length){
-					resultarray.push(" ")
-					}
-					a = testarray[i]
-					
-						for (x=0; x < checkvalue.length; x++){
-							if (checkvalue[x] === a){
-								resultarray[i] = testarray[i]
-								testarray.splice(i, 1)
-							}
+					var a = testarray[i]
+						if (String(checkvalue).toUpperCase() === String(a).toUpperCase()){
+							testarray.splice(i, 1)
 						}
 						
-					
-						
-		
 				}
 				document.getElementById("showfeedback").innerHTML = "";
-				document.getElementById("showfeedback").innerHTML += resultarray +"<br />";
-				document.getElementById("showfeedback").innerHTML = testarray;
+				input.value = ""
+				returnfeedback.innerHTML += resultarray +"<br />";
+				returnfeedback.innerHTML += testarray;
 			}
 		</script>
 	</head>
@@ -61,9 +46,9 @@
 	<body>
 		<h2> Tobias Hansen Informatikk 2015, infprog oblig3 del2 </h2>
 		<h3> Oppgave 3, Hangman </h3>
-		
-		<p id ="showfeedback"> </p>
-		<input type="text" id="getcheckvalue" />
+		<p id="usedletters" </p>
+		<p id="showfeedback"> </p>
+		<input type="text" id="getcheckvalue" value="" />
 		
 	</body>
 </html>
