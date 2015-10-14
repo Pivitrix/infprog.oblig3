@@ -16,29 +16,58 @@
 						 "Banished", "Crossfire", "Hellgate", "Redemption",
 						 "Ghostbuster", "Bittersweet", "Ganondorf", "Dragonborn"
 						]
+			
 			var corevalue = wordarray[Math.floor(Math.random()*19)]
 			var testarray = corevalue.split("")
-			var resultarray = []
-			var life = 0
+			var insertanswer = testarray
+			var usedletterarray = []
+			var showfeedbackarray = []
+			life = 10
+		
+		// ------------ RESET GAME AND START OVER
+			function resetgame (){
+				var corevalue = wordarray[Math.floor(Math.random()*19)]
+				var testarray = corevalue.split("")
+				var usedletterarray = []
+				var showfeedbackarray = []
+				if (testarray.length > 7){
+					life = 15
+				}
+					else {life = 10}
+				 
+			}
 			
 			
 			function checkanswer (){
 				var checkvalue = document.getElementById("getcheckvalue").value
 				var input = document.getElementById("getcheckvalue") 
 				var returnfeedback = document.getElementById("showfeedback")
-			
+				var showusedletter = document.getElementById("usedletters")
+				var alreadyused = document.getElementById("alreadyused")
 			// ------------- ANSWER CHECK AND LIFE REDUCTION
-				for (i= corevalue.length; i >= 0; i--){
-					var a = testarray[i]
-						if (String(checkvalue).toUpperCase() === String(a).toUpperCase()){
-							testarray.splice(i, 1)
-						}
-						
+				if (life > 0){
+				if (usedletterarray.indexOf(checkvalue) === -1){
+					usedletterarray.push(checkvalue)
+					alreadyused.innerHTML = ""
+					
+					for (i = 0; i <= corevalue.length; i++){
+						var a = testarray[i]
+							if (String(checkvalue).toUpperCase() === String(a).toUpperCase()){
+								showfeedbackarray[i] = testarray[i]
+														
+							}
+					}
 				}
-				document.getElementById("showfeedback").innerHTML = "";
+						
+					
+					else {alreadyused.innerHTML = "You already tried that, use another letter."}
+				}
+				
+				else {alreadyused.innerHTML = "Game over, reset to try again"}
+				
+				returnfeedback.innerHTML = corevalue+"<br />"+showfeedbackarray;
+				showusedletter.innerHTML = "You have used:" + String(usedletterarray).toUpperCase();
 				input.value = ""
-				returnfeedback.innerHTML += resultarray +"<br />";
-				returnfeedback.innerHTML += testarray;
 			}
 		</script>
 	</head>
@@ -46,7 +75,8 @@
 	<body>
 		<h2> Tobias Hansen Informatikk 2015, infprog oblig3 del2 </h2>
 		<h3> Oppgave 3, Hangman </h3>
-		<p id="usedletters" </p>
+		<p id="usedletters"> </p>
+		<p id="alreadyused"> </p>
 		<p id="showfeedback"> </p>
 		<input type="text" id="getcheckvalue" value="" />
 		
