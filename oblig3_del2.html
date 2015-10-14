@@ -7,7 +7,7 @@
 		<script>
 			window.onload = oppstart;
 			function oppstart(){
-				document.getElementById("getcheckvalue").onkeypress = checkanswer;
+				document.getElementById("getcheckvalue").onkeyup = checkanswer;
 			}
 			
 			wordarray = ["Rock", "Metal", "Unicorn", "Python", 
@@ -16,44 +16,58 @@
 						 "Banished", "Crossfire", "Hellgate", "Redemption",
 						 "Ghostbuster", "Bittersweet", "Ganondorf", "Dragonborn"
 						]
+			
 			var corevalue = wordarray[Math.floor(Math.random()*19)]
 			var testarray = corevalue.split("")
-			var resultarray = []
-			var life = 0
+			var insertanswer = testarray
+			var usedletterarray = []
+			var showfeedbackarray = []
+			life = 10
+		
+		// ------------ RESET GAME AND START OVER
+			function resetgame (){
+				var corevalue = wordarray[Math.floor(Math.random()*19)]
+				var testarray = corevalue.split("")
+				var usedletterarray = []
+				var showfeedbackarray = []
+				if (testarray.length > 7){
+					life = 15
+				}
+					else {life = 10}
+				 
+			}
 			
 			
 			function checkanswer (){
-				
-				var checkvalue = document.getElementById("getcheckvalue").value.split("")
-				var feedback = document.getElementById("getcheckvalue")
-			
-			// ------------- INITIAL LIFE VALUE
-				if (corevalue.length > 6){
-					life = 10
-				}
-					else {life = 8}
-			
+				var checkvalue = document.getElementById("getcheckvalue").value
+				var input = document.getElementById("getcheckvalue") 
+				var returnfeedback = document.getElementById("showfeedback")
+				var showusedletter = document.getElementById("usedletters")
+				var alreadyused = document.getElementById("alreadyused")
 			// ------------- ANSWER CHECK AND LIFE REDUCTION
-				for (i= corevalue.length; i >= 0; i--){
-					if (resultarray.length <= corevalue.length){
-					resultarray.push(" ")
-					}
-					a = testarray[i]
+				if (life > 0){
+				if (usedletterarray.indexOf(checkvalue) === -1){
+					usedletterarray.push(checkvalue)
+					alreadyused.innerHTML = ""
 					
-						for (x=0; x < checkvalue.length; x++){
-							if (checkvalue[x] === a){
-								resultarray[i] = testarray[i]
-								testarray.splice(i, 1)
+					for (i = 0; i <= corevalue.length; i++){
+						var a = testarray[i]
+							if (String(checkvalue).toUpperCase() === String(a).toUpperCase()){
+								showfeedbackarray[i] = testarray[i]
+														
 							}
-						}
+					}
+				}
 						
 					
-						
-		
+					else {alreadyused.innerHTML = "You already tried that, use another letter."}
 				}
-				document.getElementById("showfeedback").innerHTML = "";
-				document.getElementById("showfeedback").innerHTML += resultarray +"<br />";
-				document.getElementById("showfeedback").innerHTML = testarray;
+				
+				else {alreadyused.innerHTML = "Game over, reset to try again"}
+				
+				returnfeedback.innerHTML = corevalue+"<br />"+showfeedbackarray;
+				showusedletter.innerHTML = "You have used:" + String(usedletterarray).toUpperCase();
+				input.value = ""
 			}
 		</script>
 	</head>
@@ -61,9 +75,10 @@
 	<body>
 		<h2> Tobias Hansen Informatikk 2015, infprog oblig3 del2 </h2>
 		<h3> Oppgave 3, Hangman </h3>
-		
-		<p id ="showfeedback"> </p>
-		<input type="text" id="getcheckvalue" />
+		<p id="usedletters"> </p>
+		<p id="alreadyused"> </p>
+		<p id="showfeedback"> </p>
+		<input type="text" id="getcheckvalue" value="" />
 		
 	</body>
 </html>
