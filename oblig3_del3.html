@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" / >
+		<title> Eksempel </title>
+		
+		<style>
+			#hangdraw { border-style: solid; }
+		</style>
+		
+		<script>
+			
+			window.onload = oppstart;
+			function oppstart (){
+				var farger = ["red", "blue", "gray", "yellow", "purple"]
+				var ctx = document.getElementById("hangdraw").getContext("2d");
+				sirkel(400, 380, 5);
+			}
+			
+			function sirkel(x,y, width, farge) {
+				var ctx = document.getElementById("hangdraw").getContext("2d");
+			// --- initial circle	
+				ctx.beginPath();
+				ctx.arc( x, y-20 , 40, 0, Math.PI*2);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+			// --- EYE ONE	
+				ctx.beginPath();
+				ctx.arc( x-15, y-35 , 5, 0, Math.PI*2);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+			// ----- EYE TWO
+				ctx.beginPath();
+				ctx.arc( x+15, y-35 , 5, 0, Math.PI*2);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+			// ---- MOUTH 
+				ctx.beginPath();
+				ctx.arc( x, y-10 , 20, 0, Math.PI);
+				ctx.lineWidth = 5;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+			
+			//------ BODY
+				ctx.beginPath();
+				ctx.lineWidth = width-1;
+				ctx.strokestyle = farge;
+				ctx.moveTo(x,y+20);
+				ctx.lineTo(x, parseInt(y)+130);
+				ctx.stroke(); 
+			// ------ ARMER
+				ctx.beginPath();
+				ctx.rect(x, y+35, 80, 1);
+				ctx.lineWidth = width-4;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+				
+			// ------- ARM 2
+				ctx.beginPath();
+				ctx.rect(x-80, y+35, 80, 1);
+				ctx.lineWidth = width-4;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+			
+			// ----- HANGEQUIPMENT!!!!
+			// --- BASE	
+				ctx.beginPath();
+				ctx.rect(x-250, y+200, 500, 20);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+				
+			// ----- SUPPORT
+				ctx.beginPath();
+				ctx.rect(x-130, y-150, 25, 350);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+				
+			// ------ SUPPORT 2
+				ctx.beginPath();
+				ctx.rect(x-175, y-140, 325, 15);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+				
+			// ----- SUPPORT 3
+				ctx.beginPath();
+				ctx.rotate(-50*Math.PI/180);
+				ctx.fillRect(x-475, y+25, 115, 10);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+				
+			// -------- LEGS
+				ctx.beginPath();
+				ctx.fillRect(x-600, y+250, 65, 4);
+				ctx.lineWidth = width-4;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+			// ------LEGS 2
+				ctx.beginPath();
+				ctx.rotate(100*Math.PI/180);
+				ctx.fillRect(x+248, y-365, 65, 4);
+				ctx.lineWidth = width-4;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+			// ---------REMOVE LEGS
+
+				
+			}
+
+		</script>
+	</head>
+	
+	<body>
+		<canvas id="hangdraw" width="800"	height="600"> </canvas>
+		
+	</body>
+</html>
