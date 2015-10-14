@@ -7,8 +7,30 @@
 		<script>
 			window.onload = oppstart;
 			function oppstart(){
-				document.getElementById("getcheckvalue").onkeyup = checkanswer;
+				document.getElementById("getcheckvalue").onkeyup = executehangman;
 			}
+			
+			function executehangman(){
+				var youwon = document.getElementById("youwin")
+				var returnfeedback = document.getElementById("showfeedback")
+				var showusedletter = document.getElementById("usedletters")
+				var input = document.getElementById("getcheckvalue") 
+				
+				
+				if (life2 === 0) {
+					youwon.innerHTML = "Congratulations! you won"
+				}
+				
+					else if (life > 0){
+						checkanswer();
+					}
+						else {youwon.innerHTML = "Game over, reset to try again"}
+				
+				returnfeedback.innerHTML = corevalue+"<br />"+showfeedbackarray;
+				showusedletter.innerHTML = "You have used:" + String(usedletterarray).toUpperCase();
+				input.value = ""
+			}
+			
 			
 			wordarray = ["Rock", "Metal", "Unicorn", "Python", 
 						 "Jawbreaker", "Microwave", "Jigsaw", "Dungeon",
@@ -22,7 +44,8 @@
 			var insertanswer = testarray
 			var usedletterarray = []
 			var showfeedbackarray = []
-			life = 10
+			var life = 8
+			var life2 = testarray.length
 		
 		// ------------ RESET GAME AND START OVER
 			function resetgame (){
@@ -30,54 +53,184 @@
 				var testarray = corevalue.split("")
 				var usedletterarray = []
 				var showfeedbackarray = []
-				if (testarray.length > 7){
-					life = 15
-				}
-					else {life = 10}
-				 
+				var life = 8
 			}
 			
 			
 			function checkanswer (){
-				var checkvalue = document.getElementById("getcheckvalue").value
-				var input = document.getElementById("getcheckvalue") 
-				var returnfeedback = document.getElementById("showfeedback")
-				var showusedletter = document.getElementById("usedletters")
 				var alreadyused = document.getElementById("alreadyused")
-			// ------------- ANSWER CHECK AND LIFE REDUCTION
-				if (life > 0){
+
+				var checkvalue = document.getElementById("getcheckvalue").value
+			
+			// ------------- INPUT CHECK
 				if (usedletterarray.indexOf(checkvalue) === -1){
 					usedletterarray.push(checkvalue)
 					alreadyused.innerHTML = ""
+				
+				// ------ lifer reduction
+					if (testarray.indexOf(checkvalue) === -1){
+						sirkel(400, 380, 5, "black", life);
+						life -= 1
+					}
 					
+					
+				// ---- ANSWER CHECK AND CORRECT ANSWER INSERT		
 					for (i = 0; i <= corevalue.length; i++){
 						var a = testarray[i]
 							if (String(checkvalue).toUpperCase() === String(a).toUpperCase()){
 								showfeedbackarray[i] = testarray[i]
-														
+								life2 -= 1
 							}
+								
 					}
-				}
-						
 					
-					else {alreadyused.innerHTML = "You already tried that, use another letter."}
 				}
+					else {alreadyused.innerHTML = "You already tried that, use another letter."}
 				
-				else {alreadyused.innerHTML = "Game over, reset to try again"}
-				
-				returnfeedback.innerHTML = corevalue+"<br />"+showfeedbackarray;
-				showusedletter.innerHTML = "You have used:" + String(usedletterarray).toUpperCase();
-				input.value = ""
+			
 			}
+			
+// ---------------------------------- JAVASCRIPT ANIMASJON IF UNPUT IS WRONG --------------------			
+	function sirkel(x,y, width, farge, life) {
+		var ctx = document.getElementById("hangdraw").getContext("2d");
+			
+		// --- initial circle	
+		if (life === 8){	
+			ctx.beginPath();
+			ctx.arc( x, y-20 , 40, 0, Math.PI*2);
+			ctx.lineWidth = width;
+			ctx.strokeStyle = farge;
+			ctx.stroke();
+			
+		}
+				
+		if (life === 7){
+			// --- EYE ONE	
+				ctx.beginPath();
+				ctx.arc( x-15, y-35 , 5, 0, Math.PI*2);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+			// ----- EYE TWO
+				ctx.beginPath();
+				ctx.arc( x+15, y-35 , 5, 0, Math.PI*2);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+		}	
+			
+				
+		if (life === 6){
+			// ---- MOUTH 
+				ctx.beginPath();
+				ctx.arc( x, y-10 , 20, 0, Math.PI);
+				ctx.lineWidth = 5;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+		}		
+				
+				
+		if (life === 5){
+			//------ BODY
+				ctx.beginPath();
+				ctx.lineWidth = width-1;
+				ctx.strokestyle = farge;
+				ctx.moveTo(x,y+20);
+				ctx.lineTo(x, parseInt(y)+130);
+				ctx.stroke();
+		}
+				
+		if (life === 4){
+			// ------ ARMER
+				ctx.beginPath();
+				ctx.rect(x, y+35, 80, 1);
+				ctx.lineWidth = width-4;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+				
+			// ------- ARM 2
+				ctx.beginPath();
+				ctx.rect(x-80, y+35, 80, 1);
+				ctx.lineWidth = width-4;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+		}
+			// ----- HANGEQUIPMENT!!!!
+			
+		if (life === 3){
+			// --- BASE	
+				ctx.beginPath();
+				ctx.rect(x-250, y+200, 500, 20);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+		}
+		
+
+		if (life === 2){
+			// ----- SUPPORT
+				ctx.beginPath();
+				ctx.rect(x-130, y-150, 25, 350);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+				
+			// ------ SUPPORT 2
+				ctx.beginPath();
+				ctx.rect(x-175, y-140, 325, 15);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+		}
+		
+		
+		if (life === 1){
+			// ----- SUPPORT 3
+				ctx.beginPath();
+				ctx.rotate(-50*Math.PI/180);
+				ctx.fillRect(x-475, y+25, 115, 10);
+				ctx.lineWidth = width;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+				
+			// -------- LEGS
+				ctx.beginPath();
+				ctx.fillRect(x-600, y+250, 65, 4);
+				ctx.lineWidth = width-4;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+			// ------LEGS 2
+				ctx.beginPath();
+				ctx.rotate(100*Math.PI/180);
+				ctx.fillRect(x+248, y-365, 65, 4);
+				ctx.lineWidth = width-4;
+				ctx.strokeStyle = farge;
+				ctx.stroke();
+			// --------- CHOKEROPE
+				ctx.rotate(-50*Math.PI/180);
+				ctx.lineWidth = width-3;
+				ctx.strokestyle = farge;
+				ctx.moveTo(x,y-125);
+				ctx.lineTo(x, y-58 );
+				ctx.stroke(); 
+			// REMOVE
+				ctx.clearRect( x-21, y-10, 44, 25);
+			}
+
+    }
 		</script>
+	
 	</head>
 	
 	<body>
 		<h2> Tobias Hansen Informatikk 2015, infprog oblig3 del2 </h2>
 		<h3> Oppgave 3, Hangman </h3>
+		<canvas id="hangdraw" width="800"	height="600"> </canvas>
 		<p id="usedletters"> </p>
 		<p id="alreadyused"> </p>
 		<p id="showfeedback"> </p>
+		<p id="youwin"> </p>
+		Enter a letter to guess <br />
 		<input type="text" id="getcheckvalue" value="" />
 		
 	</body>

@@ -1,22 +1,6 @@
-<!DOCTYPE html>
 
-<html>
-	<head>
-		<meta charset="utf-8" / >
-		<title> Eksempel </title>
-		
-		<style>
-			#hangdraw { border-style: solid; }
-		</style>
-		
-		<script>
-			
-			window.onload = oppstart;
-			function oppstart (){
-				var farger = ["red", "blue", "gray", "yellow", "purple"]
-				var ctx = document.getElementById("hangdraw").getContext("2d");
-				sirkel(400, 380, 5);
-			}
+
+	
 			
 			function sirkel(x,y, width, farge, life) {
 				var ctx = document.getElementById("hangdraw").getContext("2d");
@@ -141,3 +125,4 @@
 				ctx.stroke(); 
 			}
 
+    }
